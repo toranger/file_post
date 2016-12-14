@@ -1,0 +1,402 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<modelStoreModel xmlns:dm0="http://schemas.microsoft.com/VisualStudio/2008/DslTools/Core" xmlns:dm1="http://schemas.microsoft.com/dsltools/Kernel" xmlns:dm2="http://schemas.microsoft.com/dsltools/Component" xmlns:dm3="http://schemas.microsoft.com/dsltools/UseCase" xmlns:dm4="http://schemas.microsoft.com/dsltools/Activity" xmlns:dm5="http://schemas.microsoft.com/dsltools/Interaction" xmlns:dm6="http://schemas.microsoft.com/dsltools/UmlModelLibrary" xmlns:dm7="http://schemas.microsoft.com/dsltools/UmlDiagrams" xmlns:dm8="http://schemas.microsoft.com/dsltools/LogicalClassDesigner"
+  dslVersion="1.0.0.0"
+  Id="8076e827-9d6a-4f92-b2bd-2c87570bd71f"
+  name="AppServerUML" xmlns="http://schemas.microsoft.com/dsltools/ModelStore">
+  <profileInstances>
+    <packageHasProfileInstances
+      Id="0caec977-1f8c-4ba3-a7db-8cc9ad9cc73b">
+      <profileInstance
+        Id="e34d544e-0fea-4ed6-ac5e-1b74119ac791"
+        name="StandardProfileL2" />
+    </packageHasProfileInstances>
+    <packageHasProfileInstances
+      Id="29349502-908c-4fda-9054-c48619c59ed0">
+      <profileInstance
+        Id="532ea607-fb19-44b8-8502-3351b05452be"
+        name="StandardProfileL3" />
+    </packageHasProfileInstances>
+  </profileInstances>
+  <packagedElements>
+    <packageHasNamedElement>
+      <class
+        Id="021e7933-bccd-4335-9289-8d91cdef370c"
+        name="kernel"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="aa0e959f-1e4b-47cf-ab9e-a25d2b13c250">
+            <interfaceMoniker
+              Id="a1171aec-e044-49ba-a38c-a24132368777"
+              LastKnownName="KernelToNet"
+              LastKnownLocation="AppServerUML.uml" />
+          </interfaceRealization>
+          <dependency
+            Id="a2721c96-c4c7-451f-bee9-fa8e53d9f1f3">
+            <classMoniker
+              Id="5f5660e5-93a1-4619-a95b-24aa6377a8ec"
+              LastKnownName="file"
+              LastKnownLocation="AppServerUML.uml" />
+          </dependency>
+          <dependency
+            Id="f3ee4dfa-62e7-456c-89a5-22c57e6a7ee0">
+            <classMoniker
+              Id="adbf7170-d3eb-4356-986f-0d4ce2ddf93c"
+              LastKnownName="ado"
+              LastKnownLocation="AppServerUML.uml" />
+          </dependency>
+          <dependency
+            Id="7883074b-1d2f-483e-b8c7-caddd3a0431a">
+            <packageMoniker
+              Id="d431bfa0-7ae1-4364-b0f2-957044735d4f"
+              LastKnownName="protocol"
+              LastKnownLocation="Package_2119.uml" />
+          </dependency>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="0b68d2bf-e875-4052-8cb2-3ec106f347ba"
+            isDerived="false"
+            sourceEndRoleName="kernel"
+            targetEndRoleName="Net"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="5f720777-6446-46ca-b589-e0075b7a6a00"
+              LastKnownName="Net"
+              LastKnownLocation="AppServerUML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="251a841a-9313-4713-a06e-d1f739162d1d"
+                  name="kernel"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="ea30d3b9-d9e0-4410-bc0d-c74f1580143a"
+                  name="Net"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="d3bcb7f4-93e0-4a26-9e79-e6ab5406e141"
+            name="PushData"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="a1171aec-e044-49ba-a38c-a24132368777"
+        name="KernelToNet"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedOperations>
+          <operation
+            Id="41442815-551e-437f-a36c-d9324ea37502"
+            name="PushData"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="0b812aee-1a38-4000-9cea-be1da32d9e9e"
+        name="tcp"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="6ac9c262-01fe-42b2-a149-f52d9c13099b">
+            <interfaceMoniker
+              Id="5f720777-6446-46ca-b589-e0075b7a6a00"
+              LastKnownName="Net"
+              LastKnownLocation="AppServerUML.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="fe6deaff-eec1-4ad4-91a6-755448e12530"
+            isDerived="false"
+            sourceEndRoleName="tcp"
+            targetEndRoleName="KernelToNet"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="a1171aec-e044-49ba-a38c-a24132368777"
+              LastKnownName="KernelToNet"
+              LastKnownLocation="AppServerUML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d6453f1b-42c1-46a9-9170-1aba4d06ff1b"
+                  name="tcp"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="f95ee642-600a-4ebc-aaf2-3cc667d530de"
+                  name="KernelToNet"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="0a0d8629-b8f0-4710-8484-ba616d9dee00"
+            name="send"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="8ad6cc16-f318-4007-b228-b72d44f69f78"
+            name="recv"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="19a2efde-acfb-42af-82ca-92b15a1e0621"
+        name="udp"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="8888d572-5ec7-4e4e-a084-92dd6a07c2fb">
+            <interfaceMoniker
+              Id="5f720777-6446-46ca-b589-e0075b7a6a00"
+              LastKnownName="Net"
+              LastKnownLocation="AppServerUML.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <targetEnds>
+          <association
+            Id="64759e06-01f6-4879-800b-dc1f6eef3fa6"
+            isDerived="false"
+            sourceEndRoleName="udp"
+            targetEndRoleName="KernelToNet"
+            isLeaf="false"
+            isAbstract="false">
+            <interfaceMoniker
+              Id="a1171aec-e044-49ba-a38c-a24132368777"
+              LastKnownName="KernelToNet"
+              LastKnownLocation="AppServerUML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="30509bc2-c4d8-4208-a37f-3d9ae801f67b"
+                  name="udp"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="31cb1b24-6f47-42b5-97ff-be5477e81d5a"
+                  name="KernelToNet"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="false" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+        <ownedOperationsInternal>
+          <operation
+            Id="11be6197-4ee5-42af-b3f3-49fe95119e29"
+            name="send"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="dfa55523-6c25-4b0d-96fa-ef4397d683e6"
+            name="recv"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="5f720777-6446-46ca-b589-e0075b7a6a00"
+        name="Net"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedOperations>
+          <operation
+            Id="2bfe9e7b-5a31-4e94-8464-7924c68f8419"
+            name="send"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="8d217e69-ea7b-48c0-b924-e150067c0ef3"
+            name="recv"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperations>
+      </Interface>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="2d6e291b-db2d-46e5-b4cf-aaa53779cf32"
+        name="queue"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <targetEnds>
+          <association
+            Id="0968a390-c729-4d4e-a66c-f09960267a3a"
+            isDerived="false"
+            sourceEndRoleName="queue"
+            targetEndRoleName="kernel"
+            isLeaf="false"
+            isAbstract="false">
+            <classMoniker
+              Id="021e7933-bccd-4335-9289-8d91cdef370c"
+              LastKnownName="kernel"
+              LastKnownLocation="AppServerUML.uml" />
+            <relationshipOwnedElementsInternal>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="63997583-6255-4034-89e5-7a950af00bc7"
+                  name="queue"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="Composite"
+                  isComposite="false"
+                  isNavigableOwned="false" />
+              </associationHasOwnedEnds>
+              <associationHasOwnedEnds>
+                <memberEnd
+                  Id="d141f743-7b30-40a1-94ff-fea2ec0ceb4a"
+                  name="kernel"
+                  isLeaf="false"
+                  isStatic="false"
+                  isReadOnly="false"
+                  isDerived="false"
+                  isDerivedUnion="false"
+                  aggregation="None"
+                  isComposite="true" />
+              </associationHasOwnedEnds>
+            </relationshipOwnedElementsInternal>
+          </association>
+        </targetEnds>
+      </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="5f5660e5-93a1-4619-a95b-24aa6377a8ec"
+        name="file"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="adbf7170-d3eb-4356-986f-0d4ce2ddf93c"
+        name="ado"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <packageMoniker
+        Id="d431bfa0-7ae1-4364-b0f2-957044735d4f"
+        LastKnownName="protocol"
+        LastKnownLocation="Package_2119.uml" />
+    </packageHasNamedElement>
+  </packagedElements>
+  <primitiveType
+    Id="220a3521-e091-4221-bae9-3ef9018e845c"
+    name="Integer"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="8943dc84-709e-4f62-b15a-a3273aa6f165"
+    name="Boolean"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="59259974-6d55-42c6-b7bd-763d77ac8ef9"
+    name="String"
+    isAbstract="false"
+    isLeaf="false" />
+  <primitiveType
+    Id="3ab42e7d-4969-445a-b209-471f5cb8209c"
+    name="UnlimitedNatural"
+    isAbstract="false"
+    isLeaf="false" />
+</modelStoreModel>
