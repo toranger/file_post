@@ -1,2 +1,36 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003" />
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <Filter Include="Control">
+      <UniqueIdentifier>{7e0c3109-2659-4d31-91ca-32661510a390}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="DB">
+      <UniqueIdentifier>{f37701e4-10e1-4094-8206-950089b48508}</UniqueIdentifier>
+    </Filter>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Control\Control.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\main.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\Queue.cpp">
+      <Filter>Control</Filter>
+    </ClCompile>
+    <ClCompile Include="DB\MyDao.cpp">
+      <Filter>DB</Filter>
+    </ClCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Control\Control.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="Control\Queue.h">
+      <Filter>Control</Filter>
+    </ClInclude>
+    <ClInclude Include="DB\MyDao.h">
+      <Filter>DB</Filter>
+    </ClInclude>
+  </ItemGroup>
+</Project>

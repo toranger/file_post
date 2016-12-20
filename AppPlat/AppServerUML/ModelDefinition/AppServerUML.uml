@@ -55,6 +55,16 @@
               LastKnownLocation="Package_2119.uml" />
           </dependency>
         </suppliersInternal>
+        <generalsInternal>
+          <generalization
+            Id="eaa2a48f-3ba6-45df-a91e-f8b1615cc753"
+            isSubstitutable="false">
+            <classMoniker
+              Id="4b51d674-71e9-437a-94b4-54d2edadcbdb"
+              LastKnownName="Control&lt;T&gt;"
+              LastKnownLocation="AppServerUML.uml" />
+          </generalization>
+        </generalsInternal>
         <targetEnds>
           <association
             Id="0b68d2bf-e875-4052-8cb2-3ec106f347ba"
@@ -377,6 +387,65 @@
         Id="d431bfa0-7ae1-4364-b0f2-957044735d4f"
         LastKnownName="protocol"
         LastKnownLocation="Package_2119.uml" />
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <class
+        Id="4b51d674-71e9-437a-94b4-54d2edadcbdb"
+        name="Control&lt;T&gt;"
+        isAbstract="false"
+        isLeaf="false"
+        isActiveClass="false">
+        <ownedOperationsInternal>
+          <operation
+            Id="79407cef-1587-4038-9252-c09498dea590"
+            name="getinstance"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="beaf7cb0-ac79-43f5-bc72-b98a50730684"
+            name="destroyinstance"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="0e3970af-0d74-4a7b-9f70-337379d2e000"
+            name="openctrl"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="a8cc84aa-b40e-4d20-8b05-4eb7efe45229"
+            name="closectrl"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="7180ce3f-6e13-4a89-94de-8c35f51eb095"
+            name="init"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="d55479d8-ef0a-40ff-9883-d252ba91612d"
+            name="uninit"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

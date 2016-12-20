@@ -76,6 +76,15 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Control\Control.cpp" />
+    <ClCompile Include="Control\main.cpp" />
+    <ClCompile Include="Control\Queue.cpp" />
+    <ClCompile Include="DB\MyDao.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Control\Control.h" />
+    <ClInclude Include="Control\Queue.h" />
+    <ClInclude Include="DB\MyDao.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
