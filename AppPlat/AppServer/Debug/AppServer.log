@@ -1,2 +1,7 @@
-﻿  main.cpp
+﻿  Project.cpp
+  Udpnet.cpp
+  Tcpnet.cpp
+  MyDao.cpp
+  Control.cpp
+  正在生成代码...
   AppServer.vcxproj -> D:\file_post\AppPlat\Debug\AppServer.exe

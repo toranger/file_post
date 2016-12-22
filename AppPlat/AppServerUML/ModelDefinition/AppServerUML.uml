@@ -34,13 +34,6 @@
               LastKnownLocation="AppServerUML.uml" />
           </interfaceRealization>
           <dependency
-            Id="a2721c96-c4c7-451f-bee9-fa8e53d9f1f3">
-            <classMoniker
-              Id="5f5660e5-93a1-4619-a95b-24aa6377a8ec"
-              LastKnownName="file"
-              LastKnownLocation="AppServerUML.uml" />
-          </dependency>
-          <dependency
             Id="f3ee4dfa-62e7-456c-89a5-22c57e6a7ee0">
             <classMoniker
               Id="adbf7170-d3eb-4356-986f-0d4ce2ddf93c"
@@ -53,6 +46,13 @@
               Id="d431bfa0-7ae1-4364-b0f2-957044735d4f"
               LastKnownName="protocol"
               LastKnownLocation="Package_2119.uml" />
+          </dependency>
+          <dependency
+            Id="07b825f5-2477-4f3f-9507-d8bb447fe42d">
+            <interfaceMoniker
+              Id="11df7f1e-1f4d-413c-bffa-ce98478bbbe1"
+              LastKnownName="Interface1"
+              LastKnownLocation="AppServerUML.uml" />
           </dependency>
         </suppliersInternal>
         <generalsInternal>
@@ -372,7 +372,93 @@
         name="file"
         isAbstract="false"
         isLeaf="false"
-        isActiveClass="false" />
+        isActiveClass="false">
+        <suppliersInternal>
+          <interfaceRealization
+            Id="3ec65b54-9d94-4b3c-9908-cf4581a1b200">
+            <interfaceMoniker
+              Id="11df7f1e-1f4d-413c-bffa-ce98478bbbe1"
+              LastKnownName="Interface1"
+              LastKnownLocation="AppServerUML.uml" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation
+            Id="47b02d1d-ea17-472c-a38c-f27cac8087be"
+            name="openfile"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="4bdb370d-7cf2-4974-8845-9dfc651040d7"
+            name="closefile"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="0e984cc0-09f3-47fd-8d32-cf678ac2e534"
+            name="Read"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="60e234d7-fcb4-47d6-9d0d-7f7d3e3bab58"
+                  name="path"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a4e5c4f7-1753-4778-9b93-c29fea574a2a"
+                  name="mode"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="930a0884-4884-4d4e-8224-6c524c04a197"
+            name="Write"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="3a47785b-6fbe-48dd-b1ec-b22893b1474e"
+                  name="path"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="4109f2fc-5d73-4e2a-9cdd-98033741d87a"
+                  name="mode"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="c9f72d64-e1d0-4e0b-bde9-872a92c0921e"
+            name="setpositon"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="false"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperationsInternal>
+      </class>
     </packageHasNamedElement>
     <packageHasNamedElement>
       <class
@@ -446,6 +532,90 @@
             isQuery="false" />
         </ownedOperationsInternal>
       </class>
+    </packageHasNamedElement>
+    <packageHasNamedElement>
+      <Interface
+        Id="11df7f1e-1f4d-413c-bffa-ce98478bbbe1"
+        name="Interface1"
+        isAbstract="false"
+        isLeaf="false">
+        <ownedOperations>
+          <operation
+            Id="3aba5493-5235-4875-90e8-0da48700e593"
+            name="openfile"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="dbf13ec2-75a8-470f-9ff0-53133b6b99bf"
+            name="closefile"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+          <operation
+            Id="d7ba7eda-a2e9-4adc-affa-21bcb8f7a654"
+            name="Read"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="2c56bfbc-5eff-4a2d-b038-d818662a2fc0"
+                  name="path"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="fdd9e9e9-a119-4e0f-8275-f914c0c82ade"
+                  name="mode"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="9bd55b01-367d-48e8-b7b6-96e5ec76c3a7"
+            name="Write"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false">
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="dc461bc6-2a92-483e-90f3-f24213e8bf64"
+                  name="path"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter
+                  Id="a7116022-8e82-48a5-8336-8dc29a4e8dc3"
+                  name="mode"
+                  direction="In"
+                  isUnique="false" />
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation
+            Id="1771165d-893a-4919-84e9-3e7ecc9583d7"
+            name="setpositon"
+            isLeaf="false"
+            isStatic="false"
+            isAbstract="true"
+            concurrency="Sequential"
+            isQuery="false" />
+        </ownedOperations>
+      </Interface>
     </packageHasNamedElement>
   </packagedElements>
   <primitiveType

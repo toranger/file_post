@@ -7,6 +7,15 @@
     <Filter Include="DB">
       <UniqueIdentifier>{f37701e4-10e1-4094-8206-950089b48508}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Common">
+      <UniqueIdentifier>{9723887e-131a-4cba-a16c-e706c664a550}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Project">
+      <UniqueIdentifier>{f0da4d6c-089f-4ea0-9a80-da003df7aa2b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Network">
+      <UniqueIdentifier>{c9cd43ec-5b55-4c0f-add1-e6230d16dd2e}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\Control.cpp">
@@ -15,22 +24,37 @@
     <ClCompile Include="Control\main.cpp">
       <Filter>Control</Filter>
     </ClCompile>
-    <ClCompile Include="Control\Queue.cpp">
-      <Filter>Control</Filter>
-    </ClCompile>
     <ClCompile Include="DB\MyDao.cpp">
       <Filter>DB</Filter>
+    </ClCompile>
+    <ClCompile Include="Project\Project.cpp">
+      <Filter>Project</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Tcpnet.cpp">
+      <Filter>Network</Filter>
+    </ClCompile>
+    <ClCompile Include="Network\Udpnet.cpp">
+      <Filter>Network</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Control\Control.h">
       <Filter>Control</Filter>
     </ClInclude>
-    <ClInclude Include="Control\Queue.h">
-      <Filter>Control</Filter>
-    </ClInclude>
     <ClInclude Include="DB\MyDao.h">
       <Filter>DB</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Circle_que.h">
+      <Filter>Common</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\INet.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Tcpnet.h">
+      <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\Udpnet.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

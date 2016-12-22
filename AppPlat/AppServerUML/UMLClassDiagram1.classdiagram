@@ -9,10 +9,6 @@
             <interfaceMoniker Id="9d833820-f2ef-4f39-9f9e-fb03ba0c0a63" LastKnownName="KernelToNet" />
             <elementDefinition Id="aa0e959f-1e4b-47cf-ab9e-a25d2b13c250" />
           </interfaceRealization>
-          <dependency Id="5263df53-28a5-445b-ae7e-5ac400e6643e">
-            <classMoniker Id="bcbd117e-d27c-495a-9f39-ccc7b2ddda3d" LastKnownName="file" />
-            <elementDefinition Id="a2721c96-c4c7-451f-bee9-fa8e53d9f1f3" />
-          </dependency>
           <dependency Id="76661435-9fa7-40bf-a4fc-38ada79fc192">
             <classMoniker Id="88e97a42-fc36-49cb-961b-f39f856e9b22" LastKnownName="ado" />
             <elementDefinition Id="f3ee4dfa-62e7-456c-89a5-22c57e6a7ee0" />
@@ -20,6 +16,10 @@
           <dependency Id="380428e3-ca6e-4f36-9b05-bcfa1e986c11">
             <packageMoniker Id="72afa783-0a85-4073-bb9c-081b08fb28a1" LastKnownName="protocol" />
             <elementDefinition Id="7883074b-1d2f-483e-b8c7-caddd3a0431a" />
+          </dependency>
+          <dependency Id="6d7d0166-f37e-4dd3-b54b-927dfde2335f">
+            <interfaceMoniker Id="52dbafd1-828d-4464-b582-4def25db949b" LastKnownName="Interface1" />
+            <elementDefinition Id="07b825f5-2477-4f3f-9507-d8bb447fe42d" />
           </dependency>
         </suppliersInternal>
         <generalsInternal>
@@ -176,6 +176,53 @@
     <logicalClassDesignerModelHasTypes>
       <class Id="bcbd117e-d27c-495a-9f39-ccc7b2ddda3d" name="file" isAbstract="false" isLeaf="false" isActiveClass="false">
         <elementDefinition Id="5f5660e5-93a1-4619-a95b-24aa6377a8ec" />
+        <suppliersInternal>
+          <interfaceRealization Id="df651a94-c9a5-41c2-8687-fc3ac48b4e1a">
+            <interfaceMoniker Id="52dbafd1-828d-4464-b582-4def25db949b" LastKnownName="Interface1" />
+            <elementDefinition Id="3ec65b54-9d94-4b3c-9908-cf4581a1b200" />
+          </interfaceRealization>
+        </suppliersInternal>
+        <ownedOperationsInternal>
+          <operation Id="eb75873b-51db-4245-8898-c8e7232f94f2" name="openfile" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="47b02d1d-ea17-472c-a38c-f27cac8087be" />
+          </operation>
+          <operation Id="61ce944e-5c1c-4df4-8f77-b6cb9cb9074d" name="closefile" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="4bdb370d-7cf2-4974-8845-9dfc651040d7" />
+          </operation>
+          <operation Id="ab547d9d-958c-4d14-95c5-eab81f4097a8" name="Read" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="0e984cc0-09f3-47fd-8d32-cf678ac2e534" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="b3128c70-348c-4e3d-9c9a-fdd8c86d8234" name="path" direction="In" isUnique="false">
+                  <elementDefinition Id="60e234d7-fcb4-47d6-9d0d-7f7d3e3bab58" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="76065373-c636-448a-a3a4-62467f8bff25" name="mode" direction="In" isUnique="false">
+                  <elementDefinition Id="a4e5c4f7-1753-4778-9b93-c29fea574a2a" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="ba6f76fb-76df-4228-b6ce-d4f65192358d" name="Write" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="930a0884-4884-4d4e-8224-6c524c04a197" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="f2457305-cc5b-415f-a1fa-110004cb5fe8" name="path" direction="In" isUnique="false">
+                  <elementDefinition Id="3a47785b-6fbe-48dd-b1ec-b22893b1474e" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="49b77ae0-363d-4ace-9223-7c1a900593f8" name="mode" direction="In" isUnique="false">
+                  <elementDefinition Id="4109f2fc-5d73-4e2a-9cdd-98033741d87a" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="796e3151-4b32-43a9-ad03-817299737720" name="setpositon" isLeaf="false" isStatic="false" isAbstract="false" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="c9f72d64-e1d0-4e0b-bde9-872a92c0921e" />
+          </operation>
+        </ownedOperationsInternal>
       </class>
     </logicalClassDesignerModelHasTypes>
     <logicalClassDesignerModelHasTypes>
@@ -212,6 +259,52 @@
           </operation>
         </ownedOperationsInternal>
       </class>
+    </logicalClassDesignerModelHasTypes>
+    <logicalClassDesignerModelHasTypes>
+      <Interface Id="52dbafd1-828d-4464-b582-4def25db949b" name="Interface1" isAbstract="false" isLeaf="false">
+        <elementDefinition Id="11df7f1e-1f4d-413c-bffa-ce98478bbbe1" />
+        <ownedOperations>
+          <operation Id="28a12326-f761-4df1-aff0-32ec1d37be40" name="openfile" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="3aba5493-5235-4875-90e8-0da48700e593" />
+          </operation>
+          <operation Id="47a7a69d-9663-45a2-b5b3-3dbf0eb97828" name="closefile" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="dbf13ec2-75a8-470f-9ff0-53133b6b99bf" />
+          </operation>
+          <operation Id="db346ebf-3afa-494e-ad23-366281c18b7a" name="Read" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="d7ba7eda-a2e9-4adc-affa-21bcb8f7a654" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="13f65beb-3ca6-4024-9c13-99ec9f86b85e" name="path" direction="In" isUnique="false">
+                  <elementDefinition Id="2c56bfbc-5eff-4a2d-b038-d818662a2fc0" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="3b603358-0cab-4542-8e85-a3dbb5c21268" name="mode" direction="In" isUnique="false">
+                  <elementDefinition Id="fdd9e9e9-a119-4e0f-8275-f914c0c82ade" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="9f7f7a8f-19f0-48cf-8f13-d1a93cdeaa16" name="Write" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="9bd55b01-367d-48e8-b7b6-96e5ec76c3a7" />
+            <ownedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="82876abb-a180-4d07-96e3-e65e1d6a78e7" name="path" direction="In" isUnique="false">
+                  <elementDefinition Id="dc461bc6-2a92-483e-90f3-f24213e8bf64" />
+                </parameter>
+              </operationHasOwnedParameters>
+              <operationHasOwnedParameters>
+                <parameter Id="a0b3caa6-af0d-41e6-ac21-fa31252190bf" name="mode" direction="In" isUnique="false">
+                  <elementDefinition Id="a7116022-8e82-48a5-8336-8dc29a4e8dc3" />
+                </parameter>
+              </operationHasOwnedParameters>
+            </ownedParameters>
+          </operation>
+          <operation Id="73c18784-01b8-4397-a4da-9bebac1e2e9f" name="setpositon" isLeaf="false" isStatic="false" isAbstract="true" concurrency="Sequential" isQuery="false">
+            <elementDefinition Id="1771165d-893a-4919-84e9-3e7ecc9583d7" />
+          </operation>
+        </ownedOperations>
+      </Interface>
     </logicalClassDesignerModelHasTypes>
   </packagedElements>
   <package Id="d8ba45ba-3e9b-44f8-b809-f56f016f3330" name="AppServerUML">

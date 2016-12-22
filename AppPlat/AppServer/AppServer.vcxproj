@@ -20,7 +20,7 @@
     <ConfigurationType>Application</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v110</PlatformToolset>
-    <CharacterSet>Unicode</CharacterSet>
+    <CharacterSet>MultiByte</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'" Label="Configuration">
     <ConfigurationType>Application</ConfigurationType>
@@ -52,6 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <AdditionalIncludeDirectories>../Common;./Control;./DB;./Project;./Network;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -77,14 +78,21 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Control\Control.cpp" />
-    <ClCompile Include="Control\main.cpp" />
-    <ClCompile Include="Control\Queue.cpp" />
+    <ClCompile Include="Control\main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="DB\MyDao.cpp" />
+    <ClCompile Include="Network\Tcpnet.cpp" />
+    <ClCompile Include="Network\Udpnet.cpp" />
+    <ClCompile Include="Project\Project.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="..\Common\Circle_que.h" />
     <ClInclude Include="Control\Control.h" />
-    <ClInclude Include="Control\Queue.h" />
     <ClInclude Include="DB\MyDao.h" />
+    <ClInclude Include="Network\INet.h" />
+    <ClInclude Include="Network\Tcpnet.h" />
+    <ClInclude Include="Network\Udpnet.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
