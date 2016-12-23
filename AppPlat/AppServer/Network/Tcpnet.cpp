@@ -1,109 +1,65 @@
 #include "Tcpnet.h"
 #include <process.h>
-#include <stdio.h>
 CTcpNet :: CTcpNet() : m_sock(NULL), m_lThreadCount(0), m_bRun(FALSE) {
 
 }
 CTcpNet :: ~CTcpNet(){
 }
 //实现基类接口
-BOOL CTcpNet :: InitNet(){
+BOOL CTcpNet :: InitNet(IKernel *kernel){
 	//the inner init for network
 	innerInitNet();
+	//keep the class of the interface of kernel
+	m_pKernel = kernel;
 	//create accept thread
 	HANDLE handler = (HANDLE)::_beginthreadex(NULL,0,Accept,this,0,NULL);
 	if(handler == NULL)
 		return FALSE;
+	::CloseHandle(handler);
 	//create recv thread
 	handler = (HANDLE)::_beginthreadex(NULL,0,ReadData,this,0,NULL);
 	if(handler == NULL)
 		return FALSE;
+	::CloseHandle(handler);
 	return TRUE;
 }
 void CTcpNet :: UnInitNet(){
-	//TODO:
+	m_bRun = FALSE;
+	while( m_lThreadCount > 0 ){
+		//wait the thread out
+		::Sleep(1);
+	}
+	//close socket
+	if( m_sock != NULL){
+		::closesocket(m_sock);
+		m_sock = NULL;
+		//delete session
+		std::map<SOCKET,STRU_SESSION*>::iterator it = m_mapSession.begin();
+		while( it != m_mapSession.end()){
+			delete (STRU_SESSION*)(it->second);
+			++it;
+		}
+		m_mapSession.clear();
+	}
+	//close the lib
+	::WSACleanup();
+	return ;
 }
 long CTcpNet :: SendData(STRU_SESSION* pSession, 
 	const char* pData, long lDataLen){
 		return ::send(pSession->m_sock,pData,lDataLen,0);
 }
 //accept the link thread funtion  the __stdcall can be int
-unsigned __stdcall WINAPI CTcpNet ::  Accept(void* param){
+unsigned int WINAPI CTcpNet ::  Accept(void* param){
 	//get the param
 	CTcpNet* p = (CTcpNet*)param;
-	u_long flag = 100;
-	SOCKET client;
-	int iErrorCode = 0;
-	//利用原子锁多threadcount进行操作
-	InterlockedIncrement(&(p->m_lThreadCount));
-	//set the unblock socket to socket
-	::ioctlsocket(p->m_sock,FIONREAD ,&flag);
-	//to accept the link
-	while(p->m_bRun){
-		client = ::accept(p->m_sock,NULL,NULL);
-		if(client == SOCKET_ERROR){
-			//get the error num
-			iErrorCode = GetLastError();
-			if(iErrorCode == WSAEWOULDBLOCK){
-				::Sleep(1);
-				continue;
-			}else{
-				break;	
-			}
-		}
-		//成功接收一个连接
-		STRU_SESSION *session = new STRU_SESSION;
-		session->m_sock = client;
-		//put into the map
-		(p->m_mapSession)[session->m_sock] = session;
-
-	}
-	InterlockedDecrement(&(p->m_lThreadCount));
+	p->Accept();
 	return 0L;
 }
 //recv the message thread funtion
-unsigned __stdcall WINAPI CTcpNet ::  ReadData(void* param){
+unsigned int WINAPI CTcpNet ::  ReadData(void* param){
 	CTcpNet* p = (CTcpNet*)param;
-	char recv_buf[MAX_RECV_BUF] = "";
-	timeval time;
-	int iRet;
-	time.tv_sec = 0;
-	time.tv_usec = 10;
-	InterlockedIncrement(&(p->m_lThreadCount));
-	while(p->m_bRun){
-		fd_set readset;//every while need to have a new set. because when finish 
-							//last set has been changed
-		//clear
-		FD_ZERO(&readset);
-		//add
-		std::map<SOCKET,STRU_SESSION*>::iterator it = (p->m_mapSession).begin();
-		while( it != (p->m_mapSession).end()){
-			FD_SET( it->second->m_sock,&readset);
-		}
-		//select 
-		iRet = ::select(0,&readset,NULL,NULL,&time);
-		if( iRet == 0)
-			continue;//timeout
-		else if( iRet == SOCKET_ERROR )
-			break;
-		//find the vary socket in set
-		it = (p->m_mapSession).begin();
-		while( it != (p->m_mapSession).end() ){
-			if (FD_ISSET(it->second->m_sock,&readset) > 0){
-				//the socket in the set to recv data
-				iRet = ::recv(it->second->m_sock,recv_buf,sizeof(recv_buf),0);
-				if(iRet == 0 || iRet == SOCKET_ERROR){
-					//close and delete the session in map
-				}else{
-					//hand to the class who need 
-				}
-			}
-
-		}
-
-
-	}
-	InterlockedDecrement(&(p->m_lThreadCount));
+	p->ReadData();
 	return 0L;
 }
 BOOL CTcpNet :: innerInitNet(){
@@ -137,7 +93,6 @@ BOOL CTcpNet :: innerInitNet(){
 }
 LONG CTcpNet :: GetHostIP(){
 	LONG iValue = inet_addr("127.0.0.1");
-	
 	char hostname[100] = "";
 	//get the hostname 
 	::gethostname(hostname,sizeof(hostname) - 1);	
@@ -151,4 +106,96 @@ LONG CTcpNet :: GetHostIP(){
 	}
 	//return ipv4
 	return iValue;
+}
+BOOL CTcpNet :: DelInvalSession(SOCKET sock){
+	//before find need lock
+	m_lock.Lock();
+	std::map<SOCKET,STRU_SESSION*>::iterator it = m_mapSession.find(sock);
+	//have two way to erase but often use the return, not the it++
+	if( it == m_mapSession.end() ){
+		//not found
+		m_lock.UnLock();
+		return FALSE;
+	}else{
+		delete (STRU_SESSION*)(it->second); //also delete the derived class
+		it = m_mapSession.erase(it); 
+	}
+	m_lock.UnLock();
+	return TRUE;
+}
+
+void CTcpNet :: Accept(){
+	u_long flag = 100;
+	SOCKET client;
+	int iErrorCode = 0;
+	//利用原子锁多threadcount进行操作
+	InterlockedIncrement(&(m_lThreadCount));
+	//set the unblock socket to socket
+	::ioctlsocket(m_sock,FIONREAD ,&flag);
+	//to accept the link
+	while(m_bRun){
+		client = ::accept(m_sock,NULL,NULL);
+		if(client == SOCKET_ERROR){
+			//get the error num
+			iErrorCode = GetLastError();
+			if(iErrorCode == WSAEWOULDBLOCK){
+				::Sleep(1);
+				continue;
+			}else{
+				break;	
+			}
+		}
+		//成功接收一个连接
+		STRU_SESSION *session = new STRU_SESSION;
+		session->m_sock = client;
+		//put into the map
+		//when opt the map need to use lock
+		(m_lock).Lock();
+		(m_mapSession)[session->m_sock] = session;
+		(m_lock).UnLock();
+	}
+	InterlockedDecrement(&(m_lThreadCount));
+	return ;
+}
+void CTcpNet :: ReadData(){
+	char recv_buf[MAX_RECV_BUF] = "";
+	timeval time;
+	int iRet;
+	time.tv_sec = 0;
+	time.tv_usec = 10;
+	InterlockedIncrement(&(m_lThreadCount));
+	while(m_bRun){
+		fd_set readset;//every while need to have a new set. because when finish 
+							//last set has been changed
+		//clear
+		FD_ZERO(&readset);
+		//add
+		std::map<SOCKET,STRU_SESSION*>::iterator it = (m_mapSession).begin();
+		while( it != (m_mapSession).end()){
+			FD_SET( it->second->m_sock,&readset);
+		}
+		//select 
+		iRet = ::select(0,&readset,NULL,NULL,&time);
+		if( iRet == 0)
+			continue;//timeout
+		else if( iRet == SOCKET_ERROR )
+			break;
+		//find the vary socket in set
+		it = (m_mapSession).begin();
+		while( it != (m_mapSession).end() ){
+			if (FD_ISSET(it->second->m_sock,&readset) > 0){
+				//the socket in the set to recv data
+				iRet = ::recv(it->second->m_sock,recv_buf,sizeof(recv_buf),0);
+				if(iRet == 0 || iRet == SOCKET_ERROR){
+					//close and delete the session in map
+					DelInvalSession(m_sock);
+					
+				}else{
+					//hand to the class who need 
+					m_pKernel->OnRecvData(it->second,recv_buf,iRet);
+				}
+			}
+		}
+	}
+	InterlockedDecrement(&(m_lThreadCount));
 }

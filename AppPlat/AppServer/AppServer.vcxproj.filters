@@ -56,5 +56,8 @@
     <ClInclude Include="Network\Udpnet.h">
       <Filter>Network</Filter>
     </ClInclude>
+    <ClInclude Include="..\Common\Lock.h">
+      <Filter>Common</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

@@ -22,8 +22,17 @@ public:
 	virtual BOOL InitNet() = 0;
 	virtual void UnInitNet() = 0; 
 	//write ps:the read(recv)并不是主动功能而write发送数据是主动
+	//提供主动调用去收数据不确定能否收到，毫无意义
 	//所以只封装write功能
 	virtual long SendData(STRU_SESSION* pSession, 
+		const char* pData, long lDataLen) = 0;
+};
+//to use the interface of the ckernel to get the data of recv to 
+//the kernel to solve
+//如果使用类内包含kernel主类则不满足最少知道原则
+class IKernel{
+public:
+	virtual BOOL OnRecvData(STRU_SESSION* pSession,
 		const char* pData, long lDataLen) = 0;
 };
 #endif//__INET_H__

@@ -88,6 +88,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\Circle_que.h" />
+    <ClInclude Include="..\Common\Lock.h" />
     <ClInclude Include="Control\Control.h" />
     <ClInclude Include="DB\MyDao.h" />
     <ClInclude Include="Network\INet.h" />

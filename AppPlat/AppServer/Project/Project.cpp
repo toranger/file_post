@@ -1,8 +1,8 @@
 #include<iostream>
+#include "Tcpnet.h"//the winsock2.h must be front of windows.h
 #include "Circle_que.h"
 #include "MyDao.h"
 #include "Control.h"
-#include "Tcpnet.h"
 
 class Test{
 public:
@@ -19,7 +19,6 @@ private:
 int main(){
 	CircleQue<Test> que;
 	que.Enque(new Test(1));
-	CTcpNet a;
 	
 	return 0;
 }
