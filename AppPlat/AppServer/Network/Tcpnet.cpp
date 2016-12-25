@@ -7,6 +7,7 @@ CTcpNet :: ~CTcpNet(){
 }
 //实现基类接口
 BOOL CTcpNet :: InitNet(IKernel *kernel){
+	UnInitNet();
 	//the inner init for network
 	innerInitNet();
 	//keep the class of the interface of kernel
@@ -47,7 +48,7 @@ void CTcpNet :: UnInitNet(){
 }
 long CTcpNet :: SendData(STRU_SESSION* pSession, 
 	const char* pData, long lDataLen){
-		return ::send(pSession->m_sock,pData,lDataLen,0);
+		return ::send((SOCKET)(pSession->m_sock),pData,lDataLen,0);
 }
 //accept the link thread funtion  the __stdcall can be int
 unsigned int WINAPI CTcpNet ::  Accept(void* param){
@@ -66,7 +67,6 @@ BOOL CTcpNet :: innerInitNet(){
 	WSADATA wsaData;
 	int iResult = 0;
 
-	SOCKET ListenSocket;
 	//open the lib 
 	iResult = ::WSAStartup(MAKEWORD(2, 2), &wsaData);
 	if (iResult != NO_ERROR) {
@@ -78,16 +78,16 @@ BOOL CTcpNet :: innerInitNet(){
 		return FALSE;
 	}
 	//create sock
-	ListenSocket = ::WSASocket(AF_INET,SOCK_STREAM,0,NULL,0,WSA_FLAG_OVERLAPPED);
+	m_sock = ::socket(AF_INET,SOCK_STREAM,0);
 	//init addr
 	SOCKADDR_IN addr;
 	addr.sin_family = AF_INET;
 	addr.sin_port = htons(12345);
 	addr.sin_addr.S_un.S_addr = GetHostIP();
 	//bind 
-	::bind(ListenSocket,(const sockaddr*)&addr,sizeof(addr));
+	::bind(m_sock,(const sockaddr*)&addr,sizeof(addr));
 	//listen
-	::listen(ListenSocket,5);
+	::listen(m_sock,5);
 	return TRUE;
 
 }
@@ -151,7 +151,7 @@ void CTcpNet :: Accept(){
 		//put into the map
 		//when opt the map need to use lock
 		(m_lock).Lock();
-		(m_mapSession)[session->m_sock] = session;
+		(m_mapSession)[(SOCKET)(session->m_sock)] = session;
 		(m_lock).UnLock();
 	}
 	InterlockedDecrement(&(m_lThreadCount));
@@ -172,7 +172,7 @@ void CTcpNet :: ReadData(){
 		//add
 		std::map<SOCKET,STRU_SESSION*>::iterator it = (m_mapSession).begin();
 		while( it != (m_mapSession).end()){
-			FD_SET( it->second->m_sock,&readset);
+			FD_SET((SOCKET)(it->second->m_sock),&readset);
 		}
 		//select 
 		iRet = ::select(0,&readset,NULL,NULL,&time);
@@ -185,7 +185,7 @@ void CTcpNet :: ReadData(){
 		while( it != (m_mapSession).end() ){
 			if (FD_ISSET(it->second->m_sock,&readset) > 0){
 				//the socket in the set to recv data
-				iRet = ::recv(it->second->m_sock,recv_buf,sizeof(recv_buf),0);
+				iRet = ::recv((SOCKET)(it->second->m_sock),recv_buf,sizeof(recv_buf),0);
 				if(iRet == 0 || iRet == SOCKET_ERROR){
 					//close and delete the session in map
 					DelInvalSession(m_sock);

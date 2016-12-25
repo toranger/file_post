@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../Common;./Control;./DB;./Project;./Network;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Common;./Control;./DB;./Project;./Network;./FileOpr;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -82,6 +82,7 @@
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="DB\MyDao.cpp" />
+    <ClCompile Include="FileOpr\FileOpr.cpp" />
     <ClCompile Include="Network\Tcpnet.cpp" />
     <ClCompile Include="Network\Udpnet.cpp" />
     <ClCompile Include="Project\Project.cpp" />
@@ -91,6 +92,8 @@
     <ClInclude Include="..\Common\Lock.h" />
     <ClInclude Include="Control\Control.h" />
     <ClInclude Include="DB\MyDao.h" />
+    <ClInclude Include="FileOpr\FileOpr.h" />
+    <ClInclude Include="FileOpr\IFile.h" />
     <ClInclude Include="Network\INet.h" />
     <ClInclude Include="Network\Tcpnet.h" />
     <ClInclude Include="Network\Udpnet.h" />

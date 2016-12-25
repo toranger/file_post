@@ -13,7 +13,9 @@ struct  STRU_SESSION{
 		m_dwAccount = 0;
 	}
 public:
-	SOCKET m_sock;
+	//when use tcp m_sock is listen socket,
+	//when use udp m_sock low 2 bytes is port,high 4 bytes is the addr
+	INT64 m_sock;
 	DWORD  m_dwAccount;
 };
 class INet{
