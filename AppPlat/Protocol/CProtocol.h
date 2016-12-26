@@ -24,18 +24,23 @@
 
 #define DEF_LOGOUT_RQ (DEF_PRO_START + 13)//only need to tell server
 #define DEF_PRO_END    (10100)
+//防止协议类型被修改利用保护继承
 struct STRU_PRO_BASE{
+public:
 	STRU_PRO_BASE(WORD type) : m_wType(type){
 
 	}
+	virtual long Serialize(char szBuf[], long szBufLen) = 0;
+	virtual BOOL UnSerialize(const char szBuf[], long szBufLen) = 0;
 protected:
 	WORD m_wType;
 };
 struct STRU_PRO_LOGIN_RQ : public STRU_PRO_BASE{
-	STRU_PRO_LOGIN_RQ() :STRU_PRO_BASE(DEF_LOGIN_RQ){//the word type in first two bytes
-		m_i64UserId = 0;
-		m_wPasswdLen = 0;
-	}
+public:
+	STRU_PRO_LOGIN_RQ();
+	long Serialize(char szBuf[], long szBufLen) ;
+	BOOL UnSerialize(const char szBuf[], long szBufLen) ;
+	static long MIN_LEN;//immobilization length
 public:
 	INT64 m_i64UserId;
 	WORD  m_wPasswdLen;//according to this len to send and recv
