@@ -10,9 +10,9 @@ public:
 	CTcpNet();
 	~CTcpNet();
 	//实现基类接口
-	BOOL InitNet(IKernel* Kernel);
-	void UnInitNet(); 
-	long SendData(STRU_SESSION* pSession, 
+	virtual BOOL InitNet(IKernel* Kernel);
+	virtual void UnInitNet(); 
+	virtual long SendData(STRU_SESSION* pSession, 
 		const char* pData, long lDataLen);
 private:
 	//accept the link thread funtion

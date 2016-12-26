@@ -19,6 +19,9 @@
     <Filter Include="FileOpr">
       <UniqueIdentifier>{3c500a72-900b-497d-865c-09261f1b636f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Protocol">
+      <UniqueIdentifier>{9c6b3737-aa77-4820-b9e5-14a383f743eb}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\Control.cpp">
@@ -41,6 +44,9 @@
     </ClCompile>
     <ClCompile Include="FileOpr\FileOpr.cpp">
       <Filter>FileOpr</Filter>
+    </ClCompile>
+    <ClCompile Include="..\Protocol\CProtocol.cpp">
+      <Filter>Protocol</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -70,6 +76,12 @@
     </ClInclude>
     <ClInclude Include="FileOpr\IFile.h">
       <Filter>FileOpr</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Protocol\CProtocol.h">
+      <Filter>Protocol</Filter>
+    </ClInclude>
+    <ClInclude Include="Network\CFactory.h">
+      <Filter>Network</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

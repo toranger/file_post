@@ -4,5 +4,6 @@
   FileOpr.cpp
   MyDao.cpp
   Control.cpp
+  CProtocol.cpp
   正在生成代码...
   AppServer.vcxproj -> D:\file_post\AppPlat\Debug\AppServer.exe
