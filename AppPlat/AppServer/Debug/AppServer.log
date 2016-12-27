@@ -1,6 +1,7 @@
 ﻿  Project.cpp
   Udpnet.cpp
   Tcpnet.cpp
+  CKernel.cpp
   FileOpr.cpp
   MyDao.cpp
   Control.cpp

@@ -52,7 +52,7 @@
       <WarningLevel>Level3</WarningLevel>
       <Optimization>Disabled</Optimization>
       <PreprocessorDefinitions>WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
-      <AdditionalIncludeDirectories>../Common;./Control;./DB;./Project;./Network;./FileOpr;../Protocol;</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>../Common;./Control;./DB;./Project;./Network;./FileOpr;../Protocol;./Kernel;</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -84,6 +84,7 @@
     </ClCompile>
     <ClCompile Include="DB\MyDao.cpp" />
     <ClCompile Include="FileOpr\FileOpr.cpp" />
+    <ClCompile Include="Kernel\CKernel.cpp" />
     <ClCompile Include="Network\Tcpnet.cpp" />
     <ClCompile Include="Network\Udpnet.cpp" />
     <ClCompile Include="Project\Project.cpp" />
@@ -96,6 +97,7 @@
     <ClInclude Include="DB\MyDao.h" />
     <ClInclude Include="FileOpr\FileOpr.h" />
     <ClInclude Include="FileOpr\IFile.h" />
+    <ClInclude Include="Kernel\CKernel.h" />
     <ClInclude Include="Network\CFactory.h" />
     <ClInclude Include="Network\INet.h" />
     <ClInclude Include="Network\Tcpnet.h" />

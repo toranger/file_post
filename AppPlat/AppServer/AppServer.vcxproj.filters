@@ -22,6 +22,9 @@
     <Filter Include="Protocol">
       <UniqueIdentifier>{9c6b3737-aa77-4820-b9e5-14a383f743eb}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Kernel">
+      <UniqueIdentifier>{d89f7dfb-ef8c-4cdc-a901-c849c6cd3985}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Control\Control.cpp">
@@ -47,6 +50,9 @@
     </ClCompile>
     <ClCompile Include="..\Protocol\CProtocol.cpp">
       <Filter>Protocol</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\CKernel.cpp">
+      <Filter>Kernel</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -82,6 +88,9 @@
     </ClInclude>
     <ClInclude Include="Network\CFactory.h">
       <Filter>Network</Filter>
+    </ClInclude>
+    <ClInclude Include="Kernel\CKernel.h">
+      <Filter>Kernel</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
