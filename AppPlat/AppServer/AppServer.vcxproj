@@ -79,25 +79,30 @@
   <ItemGroup>
     <ClCompile Include="..\Protocol\CProtocol.cpp" />
     <ClCompile Include="Control\Control.cpp" />
-    <ClCompile Include="Control\main.cpp">
-      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    <ClCompile Include="Control\test_main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">false</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="DB\MyDao.cpp" />
     <ClCompile Include="FileOpr\FileOpr.cpp" />
     <ClCompile Include="Kernel\CKernel.cpp" />
+    <ClCompile Include="Kernel\ThreadPool.cpp" />
     <ClCompile Include="Network\Tcpnet.cpp" />
     <ClCompile Include="Network\Udpnet.cpp" />
-    <ClCompile Include="Project\Project.cpp" />
+    <ClCompile Include="Project\Project.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">true</ExcludedFromBuild>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="..\Common\Circle_que.h" />
     <ClInclude Include="..\Common\Lock.h" />
+    <ClInclude Include="..\Common\Lock_que.h" />
     <ClInclude Include="..\Protocol\CProtocol.h" />
     <ClInclude Include="Control\Control.h" />
     <ClInclude Include="DB\MyDao.h" />
     <ClInclude Include="FileOpr\FileOpr.h" />
     <ClInclude Include="FileOpr\IFile.h" />
     <ClInclude Include="Kernel\CKernel.h" />
+    <ClInclude Include="Kernel\ThreadPool.h" />
     <ClInclude Include="Network\CFactory.h" />
     <ClInclude Include="Network\INet.h" />
     <ClInclude Include="Network\Tcpnet.h" />

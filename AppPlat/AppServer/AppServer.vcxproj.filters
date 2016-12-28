@@ -30,9 +30,6 @@
     <ClCompile Include="Control\Control.cpp">
       <Filter>Control</Filter>
     </ClCompile>
-    <ClCompile Include="Control\main.cpp">
-      <Filter>Control</Filter>
-    </ClCompile>
     <ClCompile Include="DB\MyDao.cpp">
       <Filter>DB</Filter>
     </ClCompile>
@@ -53,6 +50,12 @@
     </ClCompile>
     <ClCompile Include="Kernel\CKernel.cpp">
       <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="Kernel\ThreadPool.cpp">
+      <Filter>Kernel</Filter>
+    </ClCompile>
+    <ClCompile Include="Control\test_main.cpp">
+      <Filter>Control</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -91,6 +94,12 @@
     </ClInclude>
     <ClInclude Include="Kernel\CKernel.h">
       <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="Kernel\ThreadPool.h">
+      <Filter>Kernel</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Common\Lock_que.h">
+      <Filter>Common</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
