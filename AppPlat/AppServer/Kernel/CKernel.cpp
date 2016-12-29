@@ -31,6 +31,7 @@ BOOL CKernel :: OnRecvData(STRU_SESSION* pSession,
 	task->m_pSession = pSession;
 	memcpy(task->m_pData,pData,lDataLen);
 	task->m_lDataLen = lDataLen;
+	task->m_pKernel = this;	
 	//put into threadpool
 	int iTimes = 3;
 	while(FALSE == m_oPool.PushTask(task)){
@@ -39,7 +40,14 @@ BOOL CKernel :: OnRecvData(STRU_SESSION* pSession,
 			delete task;
 			return FALSE;
 		}
-
 	}
+	return TRUE;
+}
+	
+BOOL CKernel :: DealData(STRU_SESSION* pSession,
+		const char* pData, long lDataLen){
+		
+	
+
 	return TRUE;
 }

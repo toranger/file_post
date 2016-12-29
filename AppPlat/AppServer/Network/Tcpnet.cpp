@@ -1,5 +1,10 @@
 #include "Tcpnet.h"
 #include <process.h>
+#define TEST
+#ifdef TEST
+#include <iostream>
+using namespace std;
+#endif
 CTcpNet :: CTcpNet() : m_sock(NULL), m_lThreadCount(0), m_bRun(FALSE) {
 
 }
@@ -41,9 +46,9 @@ void CTcpNet :: UnInitNet(){
 			++it;
 		}
 		m_mapSession.clear();
+		//close the lib
+		::WSACleanup();
 	}
-	//close the lib
-	::WSACleanup();
 	return ;
 }
 long CTcpNet :: SendData(STRU_SESSION* pSession, 

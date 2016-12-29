@@ -1,0 +1,12 @@
+﻿  stdafx.cpp
+  ViewTree.cpp
+  TestPlatView.cpp
+  TestPlatDoc.cpp
+  TestPlat.cpp
+  PropertiesWnd.cpp
+  OutputWnd.cpp
+  MainFrm.cpp
+  FileView.cpp
+  ClassView.cpp
+  正在生成代码...
+  TestPlat.vcxproj -> D:\file_post\AppPlat\Debug\TestPlat.exe

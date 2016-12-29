@@ -75,6 +75,18 @@ public:
 		m_lRPos = (m_lRPos + 1) % m_lQueLen; 
 		return TRUE;
 	}
+	BOOL IsEmpty(){
+		if(m_lRPos == m_lWPos)
+			return TRUE;
+		return FALSE;
+	}
+	BOOL IsFull(){
+		long index = (m_lWPos + 1) % m_lQueLen;
+		if(index == m_lRPos){
+			return TRUE;
+		}
+		return FALSE;
+	}
 private:
 	T** m_pQue;
 	long m_lQueLen;

@@ -1,11 +1,2 @@
-﻿  Udpnet.cpp
-  Tcpnet.cpp
-  ThreadPool.cpp
-  CKernel.cpp
-  FileOpr.cpp
-  MyDao.cpp
-  Control.cpp
-  CProtocol.cpp
-  正在生成代码...
-  test_main.cpp
+﻿  Tcpnet.cpp
   AppServer.vcxproj -> D:\file_post\AppPlat\Debug\AppServer.exe

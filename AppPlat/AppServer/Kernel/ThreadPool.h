@@ -3,6 +3,7 @@
 #ifndef __THREAD_POOL_H__
 #define __THREAD_POOL_H__
 #include <Windows.h>
+#include "Lock_que.h"
 //任务基类接口
 struct ITask{
 public:
@@ -28,7 +29,7 @@ public:
 	void ThreadPool();	
 private:
 	//task queue
-
+	CLockQue<ITask> m_lockque;	
 	//minest thread num
 	long m_lMinNum;
 	//maxest thread num

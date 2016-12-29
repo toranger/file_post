@@ -89,9 +89,9 @@ void CUdpNet:: UnInitNet(){
 			++it;
 		}
 		m_mapSession.clear();
+		//close the lib
+		::WSACleanup();
 	}
-	//close the lib
-	::WSACleanup();
 } 
 long CUdpNet:: SendData(STRU_SESSION* pSession, 
 		const char* pData, long lDataLen){
