@@ -21,7 +21,6 @@ public:
 
 	}
 	virtual bool RunTask(){
-		//TODO:
 		if(m_pKernel){
 			m_pKernel->DealData(m_pSession,m_pData,m_lDataLen);
 		}
@@ -46,12 +45,40 @@ public:
 	//the real deal funtion
 	BOOL DealData(STRU_SESSION* pSession,
 		const char* pData, long lDataLen);
-
+private:
+	struct STRU_USER_INFO{
+	public:
+		INT64 m_i64UserId;
+		INT64 m_i64UserKey;//the server make this key for user certification
+		WORD  m_wPasswdLen;//according to this len to send and recv
+		char  m_pPasswd[MAX_PASS_LEN];
+	};
+	typedef std::map<INT64,STRU_USER_INFO*> USER_MAP;
+	USER_MAP m_UserMap;
+private:
+	typedef BOOL (CKernel::*MSG_MAP_FUNCTION)(STRU_SESSION* pSession,
+		const char* pData, long lDataLe);
+	//为每个请求定义对应处理方法
+	BOOL OnDealLoginRQ(STRU_SESSION* pSession,
+		const char* pData, long lDataLe);
+	BOOL OnDealUploadRQ(STRU_SESSION* pSession,
+		const char* pData, long lDataLe);
+	BOOL OnDealDownloadRQ(STRU_SESSION* pSession,
+		const char* pData, long lDataLe);
+	BOOL OnDealGetAppListRQ(STRU_SESSION* pSession,
+		const char* pData, long lDataLe);
+	BOOL OnDealInstallRQ(STRU_SESSION* pSession,
+		const char* pData, long lDataLe);
+	BOOL OnDealUnInstallRQ(STRU_SESSION* pSession,
+		const char* pData, long lDataLe);
+	BOOL OnDealLogoutRQ(STRU_SESSION* pSession,
+		const char* pData, long lDataLe);
 private:
 	INet* m_pTcpNet;
 	INet* m_pUdpNet;
 	CMyDao m_oDao;
 	CThreadPool m_oPool;
+	MSG_MAP_FUNCTION m_pMessageMap[DEF_PRO_COUNT];//the max count of protocol
 };
 
 

@@ -7,6 +7,7 @@
 //use the low floor sock and the top appliction use make a map 
 //when senddata to the top appliction only need to know the account info
 //does not need to know how the socket work. 
+#define MAX_RECV_BUF 1200
 struct  STRU_SESSION{
 	STRU_SESSION(){
 		m_sock = NULL;

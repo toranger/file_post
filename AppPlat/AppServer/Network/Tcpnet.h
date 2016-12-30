@@ -4,7 +4,6 @@
 #include "INet.h"
 #include <map>
 #include "Lock.h"
-#define MAX_RECV_BUF 1200
 class CTcpNet : public INet{
 public: 
 	CTcpNet();

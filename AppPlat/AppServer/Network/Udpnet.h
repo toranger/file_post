@@ -3,7 +3,6 @@
 #define __UDP_H__
 #include "INet.h"
 #include <map>
-#define MAX_RECV_BUF 1200
 class CUdpNet : public INet{
 public:
 	CUdpNet();

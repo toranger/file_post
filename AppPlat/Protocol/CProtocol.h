@@ -25,7 +25,8 @@
 #define DEF_UNINSTALL_RS (DEF_PRO_START + 12)
 
 #define DEF_LOGOUT_RQ (DEF_PRO_START + 13)//only need to tell server
-#define DEF_PRO_END    (10100)
+//#define DEF_PRO_END    (10100)
+#define DEF_PRO_COUNT  (100)//use for message map
 enum ENUM_RQ_RESULT{
 	enum_success,
 	enum_unexist,
@@ -72,6 +73,9 @@ public:
 };
 struct STRU_PRO_LOGIN_RS : public STRU_PRO_BASE {
 	STRU_PRO_LOGIN_RS();
+	long Serialize(char szBuf[], long szBufLen) ;
+	BOOL UnSerialize(const char szBuf[], long szBufLen) ;
+	static long MIN_LEN;//immobilization length
 public:
 	INT64 m_i64UserId;
 	INT64 m_i64UserKey;//the server make this key for user certification
