@@ -54,7 +54,7 @@ public:
 	BOOL Enque(T* node){
 		if( m_bOK == FALSE)
 			return FALSE;
-		CAutoLock lock(m_oLock);
+		CAutoLock lock(&m_oLock);
 		//get the index
 		long index = (m_lWPos + 1) % m_lQueLen;
 		if(index != m_lRPos){
@@ -68,7 +68,7 @@ public:
 	BOOL Deque(T** node){
 		if(m_lRPos == m_lWPos || m_bOK == FALSE)
 			return FALSE;
-		CAutoLock lock(m_oLock);
+		CAutoLock lock(&m_oLock);
 		*node = m_pQue[m_lRPos];
 		m_pQue[m_lRPos] = NULL;
 		//change the index

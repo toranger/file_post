@@ -15,6 +15,7 @@ using namespace std;
 #define DATEBASE_TYPE_SQL2000   1
 #define DATEBASE_TYPE_SQL2005   2
 #define DATEBASE_TYPE_OTHER		3
+#define DATEBASE_TYPE_SQL2008   4
 
 #define DEF_MAX_STR_LEN			(100)
 

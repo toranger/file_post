@@ -60,9 +60,9 @@ protected:
 	WORD m_wType;
 };
 //login
-struct STRU_PRO_LOGIN_RQ : public STRU_PRO_BASE{
+struct STRU_LOGIN_RQ : public STRU_PRO_BASE{
 public:
-	STRU_PRO_LOGIN_RQ();
+	STRU_LOGIN_RQ();
 	long Serialize(char szBuf[], long szBufLen) ;
 	BOOL UnSerialize(const char szBuf[], long szBufLen) ;
 	static long MIN_LEN;//immobilization length
@@ -71,8 +71,8 @@ public:
 	WORD  m_wPasswdLen;//according to this len to send and recv
 	char  m_pPasswd[MAX_PASS_LEN];
 };
-struct STRU_PRO_LOGIN_RS : public STRU_PRO_BASE {
-	STRU_PRO_LOGIN_RS();
+struct STRU_LOGIN_RS : public STRU_PRO_BASE {
+	STRU_LOGIN_RS();
 	long Serialize(char szBuf[], long szBufLen) ;
 	BOOL UnSerialize(const char szBuf[], long szBufLen) ;
 	static long MIN_LEN;//immobilization length

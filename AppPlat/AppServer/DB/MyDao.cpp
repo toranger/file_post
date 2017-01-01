@@ -48,7 +48,7 @@ BOOL CMyDao::OpenDateBase(TCHAR* strDateBaseName,int nDataType,TCHAR* strUser,TC
 		//	m_strConnect.Format(_T("provider=Microsoft.Jet.OLEDB.4.0;Data Source=%s"),strDateBaseName);
 		//}
 	}
-	else if (nDataType == DATEBASE_TYPE_SQL2000)
+	else if (nDataType == DATEBASE_TYPE_SQL2000 || nDataType == DATEBASE_TYPE_SQL2008)
 	{
 		_stprintf(m_strConnect, _T("Driver={SQL Server};Server=%s;Uid=%s;Pwd=%s;Database=%s"), strIP,strUser,strPassWord,strDateBaseName);
 		//m_strConnect.Format(_T("Driver={SQL Server};Server=%s;Uid=%s;Pwd=%s;Database=%s"),strIP,strUser,strPassWord,strDateBaseName);

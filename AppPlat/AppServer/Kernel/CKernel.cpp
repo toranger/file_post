@@ -1,4 +1,11 @@
 #include "CKernel.h"
+
+//define the info colum in user class in dbo
+#define DEF_USR_ID ("user_id")
+#define DEF_USR_PASS ("user_pass")
+#define DEF_LAST_TIME ("last_time")
+#define DEF_USR_STAT ("user_stat")
+
 CKernel :: CKernel() : m_pTcpNet(NULL), m_pUdpNet(NULL){
 	m_pMessageMap[DEF_LOGIN_RQ - DEF_PRO_START] = &CKernel::OnDealUploadRQ;
 	m_pMessageMap[DEF_UPLOAD_RQ - DEF_PRO_START] = &CKernel::OnDealUploadRQ;
@@ -18,12 +25,46 @@ BOOL CKernel :: Init(){
 	m_pTcpNet->InitNet(this);
 	m_pUdpNet = factorynet.GetInstance(enum_type_udp);
 	m_pUdpNet->InitNet(this);
-
-	m_oDao.OpenDateBase(DEF_DB_NAME,DATEBASE_TYPE_SQL2005,"sa","sa",DEF_DB_IP);//also use 2008
+	//the 2000 suit for the 2008, but when 2005 get the data have the memery problem
+	if( FALSE == m_oDao.OpenDateBase(DEF_DB_NAME,DATEBASE_TYPE_SQL2008,"sa","sa",DEF_DB_IP)){
+		return FALSE;
+	}
 	//the thread pool create
 	m_oPool.CreateThreadPool(5, 10, 10000);
-	//TODO: read the db create the map of the user info
+	//read the db create the map of the user info
+	if( FALSE == ReadUserInfo() ){
+		return FALSE;
+	}
+	return TRUE;
+}
+//read the info in db of users into the user map
+BOOL CKernel :: ReadUserInfo(){
+	std::list<TCHAR *> colum;
+	std::list<TCHAR *> retList;
+	//put the colum name in list
+	colum.push_back(DEF_USR_ID);
+	colum.push_back(DEF_USR_PASS);
+	colum.push_back(DEF_LAST_TIME);
+	colum.push_back(DEF_USR_STAT);
+	if( FALSE == m_oDao.GetData("select * from USER_INFO",colum,colum.size(),retList) ){
+		return FALSE;
+	}
 	//m_UserMap
+	//get info from the colum list to the user map
+	std::list<TCHAR*>::iterator it = retList.begin();
+	long count = retList.size() / colum.size();
+	//the ++i is fast than the i++
+	for(long i=0;i<count;++i){
+		//get info and create struct
+		STRU_USER_INFO* user = new STRU_USER_INFO;
+		user->m_i64UserId = _atoi64(*it++);
+		user->m_wPasswdLen = strlen(*it);
+		memcpy(user->m_pPasswd,*it++,user->m_wPasswdLen);
+		user->m_i64LastTime = _atoi64(*it++);
+		user->m_wUserStat = atoi(*it++);
+		//put struct into map
+		m_UserMap[user->m_i64UserId] = user;
+	}
 	return TRUE;
 }
 void CKernel :: UnInit(){
@@ -66,8 +107,8 @@ BOOL CKernel :: DealData(STRU_SESSION* pSession,
 //the kernel deal with the data
 BOOL CKernel :: OnDealLoginRQ(STRU_SESSION* pSession,
 	const char* pData, long lDataLen){
-	STRU_PRO_LOGIN_RQ oLoginRq;
-	STRU_PRO_LOGIN_RS oLoginRs;
+	STRU_LOGIN_RQ oLoginRq;
+	STRU_LOGIN_RS oLoginRs;
 	//get the info
 	oLoginRq.UnSerialize(pData,lDataLen);
 	oLoginRs.m_i64UserId = oLoginRq.m_i64UserId;
@@ -82,17 +123,17 @@ BOOL CKernel :: OnDealLoginRQ(STRU_SESSION* pSession,
 		}else{
 			if(0 == memcmp(oLoginRq.m_pPasswd,it->second->m_pPasswd,oLoginRq.m_wPasswdLen)){
 				oLoginRs.m_wResult = enum_success;	
-				//TODO: oLoginRs.m_i64UserKey;
+				pSession->m_dwAccount = oLoginRq.m_i64UserId; 
+				//oLoginRs.m_i64UserKey;
+				oLoginRs.m_i64UserKey = GetUserVarify(oLoginRq.m_i64UserId);
+				it->second->m_i64UserKey = oLoginRs.m_i64UserKey;
 			}else{
 				oLoginRs.m_wResult = enum_passwd_error;	
 			}
 		}
 	}
 	//send response
-	char szBuf[MAX_RECV_BUF];
-	long lLen;
-	lLen = oLoginRs.Serialize(szBuf,MAX_RECV_BUF);
-	m_pTcpNet->SendData(pSession,(const char*)szBuf,lLen);
+	DEF_RESPONSE()
 	return TRUE;
 }
 BOOL CKernel :: OnDealUploadRQ(STRU_SESSION* pSession,
