@@ -35,6 +35,9 @@ enum ENUM_RQ_RESULT{
 };
 struct STRU_APP_INFO{
 	STRU_APP_INFO();
+	long Serialize(char*& szBuf, long& szBufLen) ;
+	BOOL UnSerialize(const char*& szBuf, long& szBufLen) ;
+	static long MIN_LEN;//immobilization length
 public:
 	INT64 m_i64UserId;
 	INT64 m_i64UserKey;
@@ -95,6 +98,9 @@ public:
 };
 struct STRU_APP_LIST_RS : public STRU_PRO_BASE {
 	STRU_APP_LIST_RS();
+	long Serialize(char szBuf[], long szBufLen) ;
+	BOOL UnSerialize(const char szBuf[], long szBufLen) ;
+	static long MIN_LEN;//immobilization length
 public:
 	INT64 m_i64UserId;
 	WORD  m_wAppCount;//the real count of the m_oAppInfo

@@ -204,3 +204,21 @@ void CTcpNet :: ReadData(){
 	}
 	InterlockedDecrement(&(m_lThreadCount));
 }
+BOOL CTcpNet :: BreakConn(STRU_SESSION* pSession){
+	//use the ip and port into the udp sock
+	SOCKET i64key = pSession->m_sock; 
+	//find the item in map
+	std::map<SOCKET,STRU_SESSION*>::iterator it = m_mapSession.find(i64key);	
+	if(it == m_mapSession.end()){
+		//dont find in map
+		return FALSE;
+	}
+	//close the client socket in map;
+	::closesocket(i64key);
+	//free the memery
+	delete pSession;
+	pSession = NULL;	
+	//remove this item from the map
+	m_mapSession.erase(it);
+	return TRUE;
+}

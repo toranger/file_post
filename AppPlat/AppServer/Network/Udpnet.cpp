@@ -145,3 +145,20 @@ LONG CUdpNet :: GetHostIP(){
 	//return ipv4
 	return iValue;
 }
+	
+BOOL CUdpNet :: BreakConn(STRU_SESSION* pSession){
+	//use the ip and port into the udp sock
+	INT64 i64key = pSession->m_sock; 
+	//find the item in map
+	std::map<INT64,STRU_SESSION*>::iterator it = m_mapSession.find(i64key);	
+	if(it == m_mapSession.end()){
+		//dont find in map
+		return FALSE;
+	}
+	//free the memery
+	delete pSession;
+	pSession = NULL;	
+	//remove this item from the map
+	m_mapSession.erase(it);
+	return TRUE;
+}

@@ -163,6 +163,23 @@ BOOL CKernel :: OnDealUnInstallRQ(STRU_SESSION* pSession,
 }
 BOOL CKernel :: OnDealLogoutRQ(STRU_SESSION* pSession,
 	const char* pData, long lDataLen){
-
+	//only has the request
+	DEF_USER_VARIFY(LOGOUT)
+	//the udp link close. because the order use udp  
+	//other use the tcp 
+	m_pUdpNet->BreakConn(pSession);
+	//change the userinfo map 
+	it->second->m_i64LastTime = GetTickCount();
+	it->second->m_i64UserKey = 0;
+	it->second->m_wUserStat = 0;
+	//change the user info in db
+	//TODO : there can use the circle or lock queue to put operation for db in,
+	//then create a new thread to slove the data in queue to put data into db.
+	char szBuf[100];
+	sprintf(szBuf,"update USER_INFO set last_time = %I64, user_stat = %d where user_id = %I64",
+		it->second->m_i64LastTime,it->second->m_wUserStat,it->second->m_i64UserId);
+	if(FALSE == m_oDao.EditData(szBuf)){
+		return FALSE;
+	}
 	return TRUE;
 }

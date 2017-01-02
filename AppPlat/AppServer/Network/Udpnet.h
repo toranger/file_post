@@ -13,6 +13,7 @@ public:
 	//单播和广播
 	virtual long SendData(STRU_SESSION* pSession, 
 		const char* pData, long lDataLen);
+	virtual BOOL BreakConn(STRU_SESSION* pSession);
 	//TODO:组播
 public:
 	BOOL innerInitNet();

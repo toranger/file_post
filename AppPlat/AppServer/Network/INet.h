@@ -37,5 +37,6 @@ public:
 	//所以只封装write功能
 	virtual long SendData(STRU_SESSION* pSession, 
 		const char* pData, long lDataLen) = 0;
+	virtual BOOL BreakConn(STRU_SESSION* pSession) = 0;
 };
 #endif//__INET_H__

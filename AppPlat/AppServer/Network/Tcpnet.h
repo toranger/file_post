@@ -13,6 +13,7 @@ public:
 	virtual void UnInitNet(); 
 	virtual long SendData(STRU_SESSION* pSession, 
 		const char* pData, long lDataLen);
+	virtual BOOL BreakConn(STRU_SESSION* pSession);
 private:
 	//accept the link thread funtion
 	static 	unsigned int WINAPI Accept(void* param);
