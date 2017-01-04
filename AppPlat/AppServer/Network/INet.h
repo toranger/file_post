@@ -8,6 +8,11 @@
 //when senddata to the top appliction only need to know the account info
 //does not need to know how the socket work. 
 #define MAX_RECV_BUF 1200
+//use for the function of the kernel onrecvdata
+enum ENUM_RECV_TYPE{
+	enum_recv_tcp,
+	enum_recv_udp
+};
 struct  STRU_SESSION{
 	STRU_SESSION(){
 		m_sock = NULL;
@@ -19,13 +24,20 @@ public:
 	INT64 m_sock;
 	DWORD  m_dwAccount;
 };
+//use for tcp transport the file have the file head pointer
+//to test whether this is file head
+struct STRU_TCP_SESSION : public STRU_SESSION{
+	STRU_TCP_SESSION();
+public:
+	STRU_FILE_HEAD* m_pFileHead;
+};
 //to use the interface of the ckernel to get the data of recv to 
 //the kernel to solve
 //如果使用类内包含kernel主类则不满足最少知道原则
 class IKernel{
 public:
 	virtual BOOL OnRecvData(STRU_SESSION* pSession,
-		const char* pData, long lDataLen) = 0;
+		const char* pData, long lDataLen, int iType) = 0;
 };
 class INet{
 public:

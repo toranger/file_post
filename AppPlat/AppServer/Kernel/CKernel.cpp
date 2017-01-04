@@ -30,7 +30,7 @@ BOOL CKernel :: Init(){
 		return FALSE;
 	}
 	//the thread pool create
-	m_oPool.CreateThreadPool(5, 10, 10000);
+	m_oPool.CreateThreadPool(5,DEF_THREAD_POOL_MAX, 10000);
 	//read the db create the map of the user info
 	if( FALSE == ReadUserInfo() ){
 		return FALSE;
@@ -70,25 +70,59 @@ BOOL CKernel :: ReadUserInfo(){
 void CKernel :: UnInit(){
 	//TODO:
 }
+//TODO:
 BOOL CKernel :: OnRecvData(STRU_SESSION* pSession,
-		const char* pData, long lDataLen){
-	//it will take the tcp or udp thread time to return the recv data to kernel
-	//so can create the task, fill the task, then put into the thread of kernel to slove
-	//creat task
-	CMyTask * task = new CMyTask;
-	//fill
-	task->m_pSession = pSession;
-	memcpy(task->m_pData,pData,lDataLen);
-	task->m_lDataLen = lDataLen;
-	task->m_pKernel = this;	
-	//put into threadpool
-	int iTimes = 3;
-	while(FALSE == m_oPool.PushTask(task)){
-		::Sleep(1);
-		if(--iTimes == 0){
-			delete task;
-			return FALSE;
+		const char* pData, long lDataLen, int iType){
+	//the network type
+	if(enum_recv_udp == iType){
+		//it will take the tcp or udp thread time to return the recv data to kernel
+		//so can create the task, fill the task, then put into the thread of kernel to slove
+		//creat task
+		CMyTask * task = new CMyTask;
+		//fill
+		task->m_pSession = pSession;
+		memcpy(task->m_pData,pData,lDataLen);
+		task->m_lDataLen = lDataLen;
+		task->m_pKernel = this;	
+		//TODO:
+		long index = 0;
+		//put into threadpool
+		int iTimes = 3;
+		while(FALSE == m_oPool.PushTask(task,index)){
+			::Sleep(1);
+			if(--iTimes == 0){
+				delete task;
+				return FALSE;
+			}
 		}
+	}else if(enum_recv_tcp == iType){
+		STRU_TCP_SESSION* pTcpSession = (STRU_TCP_SESSION*)pSession;
+		if(pTcpSession->m_pFileHead == NULL){
+			//this is the file head
+			//the file transport
+			//get the file head
+			pTcpSession->m_pFileHead = new STRU_FILE_HEAD;
+			pTcpSession->m_pFileHead->UnSerialize(pData,lDataLen);
+
+		}
+
+		DWORD headLen = 0;
+		STRU_FILE_HEAD* head = pTcpSession->m_pFileHead;
+		//create the file key
+		INT64 i64FileKey = GetFileKey(head->m_i64UserId,head->m_wVersion,
+			head->m_wAppNameLen,(const char*)head->m_pAppName);
+		//find in which queue
+		long index = GetPostQueNum(head->m_i64UserId);
+		//create the file post task which extends the itask interface
+		CFileTask* task = new CFileTask;
+		task->m_i64UserId = head->m_i64UserId;
+		task->m_i64FileKey = i64FileKey;
+		task->m_dwFileLen  = head->m_dwFileLen;
+		task->m_pFileContent = new char[lDataLen - headLen];
+		memcpy(task->m_pFileContent,&pData[headLen],lDataLen -headLen);
+		//put into the queue
+		m_oPool.PushTask(task,index);
+
 	}
 	return TRUE;
 }

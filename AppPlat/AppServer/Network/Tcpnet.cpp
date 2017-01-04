@@ -197,7 +197,7 @@ void CTcpNet :: ReadData(){
 					
 				}else{
 					//hand to the class who need 
-					m_pKernel->OnRecvData(it->second,recv_buf,iRet);
+					m_pKernel->OnRecvData(it->second,recv_buf,iRet,enum_recv_tcp);
 				}
 			}
 		}

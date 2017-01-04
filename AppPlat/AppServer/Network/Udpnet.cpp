@@ -64,7 +64,7 @@ void CUdpNet :: ReadData(){
 				}
 				//to notify the kernel class to use
 				if(m_pKernel){
-					 m_pKernel->OnRecvData(tmp,recv_buf,iRet);
+					 m_pKernel->OnRecvData(tmp,recv_buf,iRet,enum_recv_udp);
 				}
 
 			}//end of recv

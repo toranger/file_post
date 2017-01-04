@@ -20,7 +20,7 @@ public:
 	//destory threadpool
 	void DestoryThreadPool();
 	//push task
-	bool PushTask(ITask* task);
+	bool PushTask(ITask* task,long index);
 	
 public:
 	//the threadproc

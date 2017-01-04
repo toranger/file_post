@@ -10,6 +10,8 @@
 
 #define DEF_DB_NAME ("AppDao")
 #define DEF_DB_IP ("localhost,1040")
+//the num of the thread in thread pool
+#define DEF_THREAD_POOL_MAX    (10)
 
 #define DEF_USER_VARIFY(TYPE) \
 	STRU_##TYPE##_RQ oLoginRq; \
@@ -42,13 +44,29 @@ public:
 		if(m_pKernel){
 			m_pKernel->DealData(m_pSession,m_pData,m_lDataLen);
 		}
-		return TRUE;
+		return true;
 	}
 public:
 	STRU_SESSION* m_pSession;
 	char m_pData[MAX_RECV_BUF];	
 	long m_lDataLen;
 	KernelToTask* m_pKernel;
+};
+//FileTask does not extend the Itask because tcp send file data
+//use the other theads with their own queue, to slove the data
+class CFileTask{
+public:
+	CFileTask(){
+		m_i64UserId = 0;
+		m_i64FileKey = 0;
+		m_dwFileLen = 0;
+		m_pFileContent = NULL;	
+	}
+public:
+	INT64 m_i64UserId;
+	INT64 m_i64FileKey;
+	DWORD m_dwFileLen;
+	char* m_pFileContent;
 };
 class CKernel : public CControl<CKernel>, public IKernel , public KernelToTask{
 public:
@@ -58,7 +76,7 @@ public:
 	BOOL Init();
 	void UnInit();
 	BOOL OnRecvData(STRU_SESSION* pSession,
-		const char* pData, long lDataLen);
+		const char* pData, long lDataLen, int iType);
 	//realize the function of deal the data from the each que
 	//the real deal funtion
 	BOOL DealData(STRU_SESSION* pSession,
@@ -103,11 +121,22 @@ private:
 		INT64 i64VarifyNum = (((INT64)time) << 32) + ((user_id % time) << 32) >> 32; 
 		return i64VarifyNum;
 	}
+
+	inline INT64 GetFileKey(INT64 user_id, WORD version, WORD filename_len,
+		const char* filename){
+		INT64 i64Key = user_id + HIBYTE(version)/LOBYTE(version)
+			+ filename_len;
+		return i64Key;
+	}
+	inline long GetPostQueNum(INT64 file_key){
+		//according to the num of the thread num in thread pool
+		return file_key % DEF_THREAD_POOL_MAX;
+	}
 private:
 	INet* m_pTcpNet;
 	INet* m_pUdpNet;
 	CMyDao m_oDao;
-	CThreadPool m_oPool;
+	CThreadPool m_oPool;//only use for the udp slove the order data
 	MSG_MAP_FUNCTION m_pMessageMap[DEF_PRO_COUNT];//the max count of protocol
 };
 

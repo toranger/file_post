@@ -2,9 +2,10 @@
 #ifndef __PRO_H__
 #define __PRO_H__
 #include <Windows.h>
-#define MAX_PASS_LEN    16
-#define DEF_COMMON_MAX_LEN  100
-#define DEF_GROUP_MAX_COUNT 3
+#define MAX_PASS_LEN    (16)
+#define DEF_COMMON_MAX_LEN  (100)
+#define DEF_GROUP_MAX_COUNT (3)
+#define DEF_FILE_NAME_MAX_LEN (20)
 #define DEF_PRO_START  (10010)
 #define DEF_LOGIN_RQ    (DEF_PRO_START + 1)
 #define DEF_LOGIN_RS    (DEF_PRO_START + 2)
@@ -27,6 +28,23 @@
 #define DEF_LOGOUT_RQ (DEF_PRO_START + 13)//only need to tell server
 //#define DEF_PRO_END    (10100)
 #define DEF_PRO_COUNT  (100)//use for message map
+//use for the file model 
+struct STRU_FILE_HEAD{
+	STRU_FILE_HEAD(){
+		m_i64UserId = 0;
+		m_dwFileLen = 0;
+		m_wVersion = 0;
+		m_wAppNameLen = 0;
+	}
+	long Serialize(char*& szBuf, long& szBufLen) ;
+	BOOL UnSerialize(const char*& szBuf, long& szBufLen) ;
+public:
+	INT64 m_i64UserId;
+	DWORD m_dwFileLen;
+	WORD  m_wVersion;
+	WORD  m_wAppNameLen;
+	char  m_pAppName[DEF_FILE_NAME_MAX_LEN];
+};
 enum ENUM_RQ_RESULT{
 	enum_success,
 	enum_unexist,

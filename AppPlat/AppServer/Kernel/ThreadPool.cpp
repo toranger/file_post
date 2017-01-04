@@ -45,7 +45,7 @@ void CThreadPool :: DestoryThreadPool(){
 	m_lockque.UnInit();
 }
 //push task
-bool CThreadPool :: PushTask(ITask* task){
+bool CThreadPool :: PushTask(ITask* task,long index){
 	if(task == NULL)
 		return FALSE;
 	BOOL flag;
