@@ -1,2 +1,30 @@
-﻿  CKernel.cpp
-  AppServer.vcxproj -> D:\file_post\AppPlat\Debug\AppServer.exe
+﻿  Udpnet.cpp
+d:\file_post\appplat\appserver\network\inet.h(32): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+d:\file_post\appplat\appserver\network\inet.h(32): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+  Tcpnet.cpp
+d:\file_post\appplat\appserver\network\inet.h(32): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+d:\file_post\appplat\appserver\network\inet.h(32): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+d:\file_post\appplat\appserver\network\tcpnet.cpp(209): warning C4244: “初始化”: 从“INT64”转换到“SOCKET”，可能丢失数据
+  ThreadPool.cpp
+  CKernel.cpp
+d:\file_post\appplat\appserver\network\inet.h(32): error C2143: 语法错误 : 缺少“;”(在“*”的前面)
+d:\file_post\appplat\appserver\network\inet.h(32): error C4430: 缺少类型说明符 - 假定为 int。注意: C++ 不支持默认 int
+d:\file_post\appplat\appserver\kernel\ckernel.h(123): warning C4554: “>>”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+d:\file_post\appplat\appserver\kernel\ckernel.cpp(55): error C2276: “&”: 绑定成员函数表达式上的非法操作
+d:\file_post\appplat\appserver\kernel\ckernel.cpp(152): error C2039: “m_pFileHead”: 不是“STRU_TCP_SESSION”的成员
+          d:\file_post\appplat\appserver\network\inet.h(29) : 参见“STRU_TCP_SESSION”的声明
+d:\file_post\appplat\appserver\kernel\ckernel.cpp(156): error C2039: “m_pFileHead”: 不是“STRU_TCP_SESSION”的成员
+          d:\file_post\appplat\appserver\network\inet.h(29) : 参见“STRU_TCP_SESSION”的声明
+d:\file_post\appplat\appserver\kernel\ckernel.cpp(157): error C2039: “m_pFileHead”: 不是“STRU_TCP_SESSION”的成员
+          d:\file_post\appplat\appserver\network\inet.h(29) : 参见“STRU_TCP_SESSION”的声明
+d:\file_post\appplat\appserver\kernel\ckernel.cpp(157): error C2227: “->UnSerialize”的左边必须指向类/结构/联合/泛型类型
+d:\file_post\appplat\appserver\kernel\ckernel.cpp(162): error C2039: “m_pFileHead”: 不是“STRU_TCP_SESSION”的成员
+          d:\file_post\appplat\appserver\network\inet.h(29) : 参见“STRU_TCP_SESSION”的声明
+d:\file_post\appplat\appserver\kernel\ckernel.cpp(176): error C2664: “CThreadPool::PushTask”: 不能将参数 1 从“CFileTask *”转换为“ITask *”
+          与指向的类型无关；转换要求 reinterpret_cast、C 样式转换或函数样式转换
+d:\file_post\appplat\appserver\kernel\ckernel.cpp(212): warning C4244: “=”: 从“INT64”转换到“DWORD”，可能丢失数据
+  FileOpr.cpp
+  MyDao.cpp
+  Control.cpp
+  CProtocol.cpp
+  正在生成代码...

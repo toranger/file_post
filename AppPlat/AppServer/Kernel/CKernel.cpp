@@ -1,4 +1,5 @@
 #include "CKernel.h"
+#include <process.h>
 
 //define the info colum in user class in dbo
 #define DEF_USR_ID ("user_id")
@@ -6,7 +7,8 @@
 #define DEF_LAST_TIME ("last_time")
 #define DEF_USR_STAT ("user_stat")
 
-CKernel :: CKernel() : m_pTcpNet(NULL), m_pUdpNet(NULL){
+CKernel :: CKernel() : m_pTcpNet(NULL), m_pUdpNet(NULL),m_lThreadCount(0){
+	
 	m_pMessageMap[DEF_LOGIN_RQ - DEF_PRO_START] = &CKernel::OnDealUploadRQ;
 	m_pMessageMap[DEF_UPLOAD_RQ - DEF_PRO_START] = &CKernel::OnDealUploadRQ;
 	m_pMessageMap[DEF_DOWNLOAD_RQ - DEF_PRO_START] = &CKernel::OnDealDownloadRQ;
@@ -35,7 +37,57 @@ BOOL CKernel :: Init(){
 	if( FALSE == ReadUserInfo() ){
 		return FALSE;
 	}
+	m_pTranFileParam = new STRU_TRAN_FILE_PARAM[m_lThreadCount];
+	SYSTEM_INFO sysInfo;
+	::GetSystemInfo(&sysInfo);
+	//use the complete port(network mode) knowlage 
+	m_lThreadCount = sysInfo.dwNumberOfProcessors * 2;
+	//the file task queue init
+	m_pFileTaskQue = new CircleQue<CFileTask>[m_lThreadCount];
+	for(long i = 0;i<m_lThreadCount;++i){
+		//init the queue
+		m_pFileTaskQue[i].Init(DEF_THREAD_QUE_LEN);
+	}
+	//create the file transport thread
+	for(long i = 0; i<m_lThreadCount;++i){
+		m_pTranFileParam[i].m_lIndex = i;
+		m_pTranFileParam[i].m_pKernel = this;
+		HANDLE handle = (HANDLE)::_beginthreadex(NULL,0,&OnFileTran,&(m_pTranFileParam[i]),0,0);
+		::CloseHandle(handle);
+		handle = NULL;
+	}
 	return TRUE;
+}
+//the thread function to tcp file transport
+//static function can not use the class this point
+unsigned int WINAPI CKernel :: OnFileTran(void* param){
+	STRU_TRAN_FILE_PARAM* pThis = (STRU_TRAN_FILE_PARAM*)param;
+	pThis->m_pKernel->OnFileTran(pThis->m_lIndex);
+	return 0L;	
+}
+void CKernel :: OnFileTran(long index){
+	while(1){
+		//get the task from queue according to the index
+		CFileTask* pTask = NULL;
+		while(TRUE == m_pFileTaskQue[index].Deque(&pTask)){
+			//slove
+			//whether file exist	
+
+			//whether open
+
+			//write file 
+
+			//whether the file write done
+
+			//if done return the result to the client
+
+		}
+		//wait
+		::Sleep(10);
+	}
+	//when one thread finish;
+	::InterlockedDecrement(&m_lThreadCount);
+	return ;
 }
 //read the info in db of users into the user map
 BOOL CKernel :: ReadUserInfo(){

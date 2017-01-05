@@ -206,7 +206,7 @@ void CTcpNet :: ReadData(){
 }
 BOOL CTcpNet :: BreakConn(STRU_SESSION* pSession){
 	//use the ip and port into the udp sock
-	SOCKET i64key = pSession->m_sock; 
+	SOCKET i64key = (SOCKET)pSession->m_sock; 
 	//find the item in map
 	std::map<SOCKET,STRU_SESSION*>::iterator it = m_mapSession.find(i64key);	
 	if(it == m_mapSession.end()){

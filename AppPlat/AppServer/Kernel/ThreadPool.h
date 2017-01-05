@@ -1,5 +1,7 @@
 #pragma once
-
+/*
+	the thread pool only use for the udp order transport
+*/
 #ifndef __THREAD_POOL_H__
 #define __THREAD_POOL_H__
 #include <Windows.h>
